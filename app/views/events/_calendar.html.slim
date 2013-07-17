@@ -1,0 +1,14 @@
+
+= calendar @month do |date|
+  - next if date.month != @month.month
+  div.content_holder data-date="#{date.strftime('%Y/%m/%d')}"
+    div.header
+      = date.day
+    div.content
+      - if rand(10) % 5 == 0
+        div.events_progress
+          input.progress type='text' value='75' disabled='disabled' data-width="40" data-height="40"
+        div.events_num
+          | 3 events
+      -else
+        | no events

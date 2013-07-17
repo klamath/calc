@@ -1,0 +1,9 @@
+div.page-header
+  h1 Listing events
+
+= simple_form_for(SearchQuery.new, :url => events_path, :method => :get) do |f|
+  = f.input 'date', :input_html => {'data-calendar-url' => calendar_events_path}
+  = f.button :submit, 'Search'
+
+div id='calendar-holder'
+

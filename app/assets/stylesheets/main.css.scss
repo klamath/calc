@@ -1,0 +1,84 @@
+@import "bootstrap-variables.css.scss";
+@import "bootstrap-generators.css.scss";
+
+body{
+
+}
+
+h1{
+    margin-top: 14px;
+}
+
+h2{
+    margin-top: 12px;
+}
+
+table.calendar{
+    width: 100%;
+    td{
+      input.progress{
+        border: 0;
+        box-shadow: none;
+        cursor: default;
+      }
+    }
+    td.notmonth{
+        color: silver;
+    }
+    td{
+        div.content_holder.selected.first{
+          background: url('/assets/arrow-right.png') $blue center center no-repeat;
+          .content{
+            opacity: 0;
+          }
+        }
+        div.content_holder.selected.last{
+          background: url('/assets/arrow-left.png') $blue center center no-repeat;
+          .content{
+            opacity: 0;
+          }
+        }
+        div.content_holder.selected{
+          .content{
+            background-color: $green;
+          }
+        }
+
+        div.content_holder{
+          .header{
+            background-color: $blue;
+            font-weight: bold;
+            color: $white;
+          }
+          .content{
+            padding-top: 5px;
+            height: 95px;
+          }
+
+          background-color: $white;
+          margin: 2px;
+          padding: 3px;
+          text-align: center;
+          font-size: 10px;
+          height: 100px;
+        }
+    }
+}
+
+.footer{
+}
+
+.header{
+
+
+}
+
+hr{
+
+}
+
+.page-header{
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
