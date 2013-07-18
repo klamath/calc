@@ -1,14 +1,15 @@
+div.navigate
+  - prev_month = @month - 1.month
+  - next_month = @month + 1.month
+  span = link_to '<<<<<', calendar_events_path(year: prev_month.year , month: prev_month.month), class: 'prev_next_month'
+  span.curr_month data-calendar-data-url="#{calendar_data_events_path(year: @month.year, month: @month.month)}" #{@month.strftime("%Y %B")}
+  span = link_to '>>>>>', calendar_events_path(year: next_month.year , month: next_month.month), class: 'prev_next_month'
 
 = calendar @month do |date|
   - next if date.month != @month.month
   div.content_holder data-date="#{date.strftime('%Y/%m/%d')}"
     div.header
       = date.day
+
     div.content
-      - if rand(10) % 5 == 0
-        div.events_progress
-          input.progress type='text' value='75' disabled='disabled' data-width="40" data-height="40"
-        div.events_num
-          | 3 events
-      -else
-        | no events
+      = image_tag('spinner.gif', alt: 'loading', class: 'spinner')

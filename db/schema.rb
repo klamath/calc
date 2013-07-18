@@ -11,10 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717083238) do
+ActiveRecord::Schema.define(:version => 20130718131847) do
+
+  create_table "day_progresses", :force => true do |t|
+    t.date     "day"
+    t.integer  "progress"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "day_progresses", ["day"], :name => "index_day_progresses_on_day", :unique => true
+
+  create_table "event_updates", :force => true do |t|
+    t.datetime "updated_at", :null => false
+    t.integer  "records"
+    t.string   "message"
+    t.datetime "created_at", :null => false
+  end
 
   create_table "events", :force => true do |t|
-    t.integer  "event_id"
     t.string   "title"
     t.text     "description"
     t.datetime "date_start"
@@ -22,5 +37,8 @@ ActiveRecord::Schema.define(:version => 20130717083238) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "events", ["date_end"], :name => "index_events_on_date_end"
+  add_index "events", ["date_start"], :name => "index_events_on_date_start"
 
 end

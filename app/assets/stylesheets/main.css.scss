@@ -53,6 +53,9 @@ table.calendar{
           .content{
             padding-top: 5px;
             height: 95px;
+            .spinner{
+              margin-top: 24px;
+            }
           }
 
           background-color: $white;
@@ -63,6 +66,24 @@ table.calendar{
           height: 100px;
         }
     }
+}
+
+.event{
+  background-color: $white;
+  padding: 14px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.navigate{
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 40px;
+  .curr_month{
+    text-align: center;
+    width: 180px;
+    display: inline-block;
+  }
 }
 
 .footer{

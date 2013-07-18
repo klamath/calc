@@ -1,9 +1,25 @@
 div.page-header
-  h1 Listing events
+  h1 Events
 
-= simple_form_for(SearchQuery.new, :url => events_path, :method => :get) do |f|
+= simple_form_for(@search_query, :url => events_path, :method => :get) do |f|
   = f.input 'date', :input_html => {'data-calendar-url' => calendar_events_path}
   = f.button :submit, 'Search'
 
 div id='calendar-holder'
+
+= render :partial => 'day_tpl'
+
+- @events.each do |event|
+  div.event
+    dl
+      dt Event Name
+      dd = event.title.html_safe
+      dt Start Date
+      dd = event.date_start
+      dt End Date
+      dd = event.date_end
+      dt Description
+      dd = event.description.html_safe
+
+= will_paginate @events, :renderer => BootstrapPagination::Rails
 

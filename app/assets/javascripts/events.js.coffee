@@ -1,31 +1,21 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
 $(document).ready ->
 
-  $(document).on("click", "#search_query_date", () ->
-    url = $(this).attr('data-calendar-url')
-    $.ajax
-      url: url
-      success: (data)->
-        $("#calendar-holder").html(data)
-        $("#calendar-holder .progress").knob({readOnly: true});
-      error: (data, text_status)->
-        $("#calendar-holder").html(text_status)
+  $(document).on("click", "a.prev_next_month", () ->
+    $('#search_query_date').val("")
+    load_calendar($(this).attr('href'));
+    return false;
+  )
 
+  $(document).on("click", "#search_query_date", () ->
+    if is_calendar_visible()
+      return true
+    load_calendar()
     return false
   )
 
   $(document).on("click", "table.calendar td", () ->
     click_calendar_day_handler($(this))
-#    url = $(this).attr('href')
-#    $.ajax
-#      url: url
-#      success: (data)->
-#        $("#calendar-holder").html(data)
-#      error: (data, text_status)->
-#        $("#calendar-holder").html(text_status)
-
     return false
   )
 
@@ -47,6 +37,7 @@ click_calendar_day_handler = (element) ->
   this_date = this_element.attr('data-date')
 
   if selected_elements_num == 0
+    # no markers
     this_element.addClass('selected')
     this_element.addClass('first')
   else if selected_elements_num == 1
@@ -82,5 +73,42 @@ click_calendar_day_handler = (element) ->
 
   $('#search_query_date').val("#{first_date} - #{last_date}")
   return true
+
+
+get_month_data = (month) ->
+  url = $('span.curr_month').attr('data-calendar-data-url')
+  $.getJSON(url, (data) ->
+    n = 0;
+    content_elements = $('#calendar-holder .content')
+    content_elements.html('')
+    $.each(data, (key, val) ->
+      if val[1] == 0
+        $(content_elements[n]).html(tmpl("tmpl-no-events", val))
+      else
+        $(content_elements[n]).html(tmpl("tmpl-events", val))
+
+      n += 1;
+    )
+    $("#calendar-holder .progress").knob({readOnly: true});
+  )
+
+is_calendar_visible = () ->
+  $('#calendar-holder').html().replace(/^\s+|\s+$/g, '').length > 0
+
+load_calendar = (url_year_month) ->
+
+  if url_year_month
+    url = url_year_month
+  else
+    url = window.calendar_events
+
+  console.log(url)
+  $.ajax
+    url: url
+    success: (data)->
+      $("#calendar-holder").html(data)
+      get_month_data('date?')
+    error: (data, text_status)->
+      $("#calendar-holder").html(text_status)
 
 jQuery.fn.exists = () -> return this.length > 0;

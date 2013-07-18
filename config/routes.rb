@@ -1,6 +1,7 @@
 Calc::Application.routes.draw do
   resources :events, :only => [:index] do
     get :calendar,  :on => :collection
+    get :calendar_data,  :on => :collection
   end
 
 
