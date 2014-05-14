@@ -3,6 +3,8 @@ Calc::Application.routes.draw do
     get :calendar,  :on => :collection
     get :calendar_data,  :on => :collection
   end
+  get '/events/show' => 'events#events'
+  get '/events/view' => 'events#view'
 
 
   # The priority is based upon order of creation:

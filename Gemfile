@@ -17,6 +17,7 @@ gem 'therubyracer'
 gem 'bootstrap-generators', '~> 2.1'
 gem 'simple_form', '~> 2.1.0'
 gem 'slim'
+gem 'haml-rails'
 gem 'savon'
 
 

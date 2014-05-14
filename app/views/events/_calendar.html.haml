@@ -1,0 +1,16 @@
+.navigate
+  - prev_month = @month - 1.month
+  - next_month = @month + 1.month
+  %span 
+    = link_to '<<<<<', calendar_events_path(year: prev_month.year , month: prev_month.month), class: 'prev_next_month'
+  %span.curr_month{data: {calendar_url: calendar_data_events_path(year: @month.year, month: @month.month)}}
+    = @month.strftime("%Y %B")
+  %span 
+    = link_to '>>>>>', calendar_events_path(year: next_month.year , month: next_month.month), class: 'prev_next_month'
+
+= calendar @month do |date|
+  - next if date.month != @month.month
+  .content_holder{data: {date: date.strftime('%Y/%m/%d')}}
+    .header
+      = date.day
+    .content

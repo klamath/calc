@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     if params[:search_query] && params[:search_query][:date]
       @search_query = SearchQuery.new(params[:search_query])
       if @search_query.valid?
-        @events = Event.from_to(@search_query.date_start, @search_query.date_end).paginate(page: params[:page], per_page: 5)
+        @events = Event.from_to(@search_query.date_start, @search_query.date_end)
       end
     else
       @search_query = SearchQuery.new
@@ -22,6 +22,29 @@ class EventsController < ApplicationController
     @month = get_month(params)
     respond_to do |format|
       format.html { render partial: 'calendar' }
+    end
+  end
+
+  def events
+    if params[:date]
+      @search_query = SearchQuery.new({date: params[:date]})
+      if @search_query.valid?
+        @events = Event.from_to(@search_query.date_start, @search_query.date_end)
+      end
+    end
+
+    respond_to do |format|
+      format.json { render :json => @events.to_json }
+    end
+  end
+
+  def view
+    if params[:id]
+      @event = Event.where(id: params[:id]).first()
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @event.to_json }
     end
   end
 
